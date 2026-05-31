@@ -1,139 +1,110 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>LekshmiVerse</title>
 
 <style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-    margin:0;
-    font-family:Georgia, serif;
-    background:linear-gradient(to bottom,#ffd6e7,#fff5f7,#ffe7d6);
-    color:#4a2a3a;
-    text-align:center;
+font-family:Georgia,serif;
+background:linear-gradient(to bottom,#07111f,#1a2740,#ffd6e7);
+color:white;
+overflow-x:hidden;
 }
 
 .hero{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:30px;
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+padding:20px;
+position:relative;
 }
 
 h1{
-    font-size:3rem;
+font-size:4rem;
+text-shadow:0 0 20px rgba(255,255,255,.6);
+}
+
+.subtitle{
+font-size:1.3rem;
+margin-top:15px;
+opacity:.9;
+}
+
+.moon{
+width:150px;
+height:150px;
+border-radius:50%;
+background:#fff7d6;
+box-shadow:0 0 60px #fff7d6;
+position:absolute;
+top:70px;
+right:30px;
 }
 
 .section{
-    padding:60px 20px;
+padding:80px 25px;
 }
 
 .card{
-    background:white;
-    margin:auto;
-    max-width:700px;
-    padding:25px;
-    border-radius:20px;
-    box-shadow:0 5px 20px rgba(0,0,0,0.1);
+max-width:800px;
+margin:auto;
+background:rgba(255,255,255,.12);
+backdrop-filter:blur(12px);
+padding:30px;
+border-radius:25px;
+border:1px solid rgba(255,255,255,.2);
+}
+
+h2{
+margin-bottom:20px;
+font-size:2rem;
+}
+
+p{
+line-height:1.8;
+font-size:1.1rem;
+}
+
+.paths{
+display:grid;
+gap:20px;
+margin-top:25px;
+}
+
+.path{
+background:rgba(255,255,255,.1);
+padding:20px;
+border-radius:20px;
 }
 
 button{
-    padding:12px 25px;
-    border:none;
-    border-radius:30px;
-    background:#ff6b9a;
-    color:white;
-    font-size:1rem;
+background:#ff7fa8;
+color:white;
+border:none;
+padding:15px 25px;
+border-radius:50px;
+font-size:1rem;
+cursor:pointer;
 }
 
-.hidden{
-    display:none;
+#secret{
+display:none;
+margin-top:20px;
 }
-</style>
-</head>
 
-<body>
-
-<div class="hero">
-<h1>🌸 LekshmiVerse 🌸</h1>
-<p>A Universe Built From Dreams</p>
-</div>
-
-<div class="section">
-<div class="card">
-<h2>💌 Dear Lekshmi</h2>
-
-<p>
-We may not have hundreds of photographs together.
-We may not have years of memories to show.
-But some people become important long before the memories arrive.
-</p>
-
-<p>
-This little universe is built from dreams,
-hope, and the belief that beautiful things can still happen.
-</p>
-
-<p>❤️ — Abii</p>
-
-</div>
-</div>
-
-<div class="section">
-<div class="card">
-<h2>🇯🇵 & 🎭 Our Two Paths</h2>
-
-<p>
-One dream leads toward Japan,
-graduation, hard work, and a new life.
-</p>
-
-<p>
-Another dream leads toward acting,
-where passion and determination guide the way.
-</p>
-
-<p>
-Different roads.
-Same hope.
-A meaningful future.
-</p>
-</div>
-</div>
-
-<div class="section">
-<button onclick="document.getElementById('secret').style.display='block'">
-🎁 Open When You're Sad
-</button>
-
-<div id="secret" class="card hidden" style="margin-top:20px;">
-<h2>🌙 A Message For You</h2>
-
-<p>
-If today feels difficult,
-remember how far you've already come.
-Keep going.
-The future version of you is proud of you.
-</p>
-
-<p>❤️</p>
-</div>
-</div>
-
-<div class="section">
-<h2>
-Maybe it will be Japan.<br>
-Maybe it will be acting.<br>
-Maybe life has another story waiting.<br><br>
-Whatever happens,<br>
-I'm grateful our paths crossed.
-</h2>
-
-<p>🌸 With Love, Abii ❤️</p>
-</div>
-
-</body>
-  </html>
+footer{
+text-align:center;
+padding:80px 20px;
+font-size:1.2
