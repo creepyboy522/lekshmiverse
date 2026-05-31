@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LekshmiVerse</title>
     <style>
-        /* Global & Smooth Aesthetic Reset */
+        /* Global Reset & Midnight Aesthetic */
         * {
             margin: 0;
             padding: 0;
@@ -13,29 +13,35 @@
         }
 
         body {
-            background: linear-gradient(180deg, #07030d 0%, #150a24 35%, #2d1330 70%, #4a1936 100%);
+            background: linear-gradient(180deg, #020105 0%, #080312 30%, #120524 60%, #1e0933 100%);
             font-family: 'Georgia', serif;
             color: #FFFFFF;
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
-            padding-bottom: 80px;
+            padding-bottom: 220px; /* Space for mountain couple background */
             scroll-behavior: smooth;
         }
 
-        /* Ambient Background Glows */
+        /* Ambient Pulsing Nebula */
         .nebula {
             position: fixed;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 182, 193, 0.12) 0%, rgba(0,0,0,0) 70%);
-            top: 15%;
-            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(236, 64, 122, 0.06) 0%, rgba(0,0,0,0) 70%);
+            top: 5%;
+            left: -15%;
             pointer-events: none;
             z-index: 0;
+            animation: pulseNebula 10s ease-in-out infinite alternate;
         }
 
-        /* Twinkling Stars */
+        @keyframes pulseNebula {
+            0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
+            100% { transform: scale(1.15) rotate(15deg); opacity: 1; }
+        }
+
+        /* Twinkling Starfield */
         .stars {
             position: fixed;
             top: 0;
@@ -55,269 +61,302 @@
         }
 
         @keyframes twinkle {
-            0% { opacity: 0.1; transform: scale(0.7); }
-            100% { opacity: 1; transform: scale(1.4); }
+            0% { opacity: 0.1; transform: scale(0.6); }
+            100% { opacity: 1; transform: scale(1.4); box-shadow: 0 0 8px #fff; }
         }
 
-        /* Magic Touch Trail Particles */
-        .trail {
+        /* Shooting Stars */
+        .shooting-stars {
             position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             pointer-events: none;
-            width: 6px;
-            height: 6px;
-            background: #fff;
-            border-radius: 50%;
-            box-shadow: 0 0 10px #ffb6c1, 0 0 20px #ff69b4;
-            animation: fadeOut 1.2s forwards;
-            z-index: 9999;
-        }
-
-        /* Click Burst Particles */
-        .burst-particle {
-            position: fixed;
-            pointer-events: none;
-            font-size: 1.2rem;
-            z-index: 9999;
-            animation: burst 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-        }
-
-        @keyframes fadeOut {
-            0% { opacity: 1; transform: scale(1); }
-            100% { opacity: 0; transform: scale(0.1) translateY(15px); }
-        }
-
-        @keyframes burst {
-            0% { opacity: 1; transform: translate(-50%, -50%) translate(0, 0) scale(1); }
-            100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--mx), var(--my)) scale(0.5); }
-        }
-
-        /* Glowing Moon */
-        .moon {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 75px;
-            height: 75px;
-            background: radial-gradient(circle, #fffdf0 30%, #fff0f5 70%);
-            border-radius: 50%;
-            box-shadow: 0 0 40px rgba(255, 240, 245, 0.6), 0 0 90px rgba(255, 182, 193, 0.4);
             z-index: 1;
         }
 
-        /* Header Area */
+        .shooting-star {
+            position: absolute;
+            top: var(--top);
+            left: var(--left);
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+            transform: rotate(-40deg);
+            opacity: 0;
+            animation: shoot var(--speed) infinite linear;
+            animation-delay: var(--delay);
+        }
+
+        @keyframes shoot {
+            0% { transform: translate(0, 0) rotate(-40deg); opacity: 0; width: 0; }
+            5% { opacity: 1; width: 100px; }
+            20% { transform: translate(-400px, 330px) rotate(-40deg); opacity: 0; width: 0; }
+            100% { transform: translate(-400px, 330px) rotate(-40deg); opacity: 0; }
+        }
+
+        /* Star Trails Chasing Finger */
+        .trail-star {
+            position: fixed;
+            pointer-events: none;
+            font-size: var(--size);
+            color: #ffb6c1;
+            text-shadow: 0 0 10px #ff69b4, 0 0 20px #ff1493;
+            animation: trailFade 1.4s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes trailFade {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1.2) rotate(0deg); }
+            100% { opacity: 0; transform: translate(-50%, calc(-50% + var(--y-drift))) scale(0.2) rotate(180deg); }
+        }
+
+        /* Click Sparkle Explosion */
+        .burst-particle {
+            position: fixed;
+            pointer-events: none;
+            font-size: 1.4rem;
+            z-index: 9999;
+            animation: burstOut 0.9s cubic-bezier(0.1, 0.9, 0.2, 1) forwards;
+        }
+
+        @keyframes burstOut {
+            0% { opacity: 1; transform: translate(-50%, -50%) scale(1.5); }
+            100% { opacity: 0; transform: translate(-50%, -50%) translate(var(--mx), var(--my)) scale(0.3); }
+        }
+
+        /* Glowing Celestial Moon */
+        .moon {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            width: 85px;
+            height: 85px;
+            background: radial-gradient(circle, #fffdf2 20%, #ffeaf0 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 35px rgba(255, 234, 240, 0.4), 0 0 90px rgba(255, 182, 193, 0.2);
+            z-index: 1;
+            animation: slowFloat 6s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Header Layout */
         header {
             text-align: center;
-            padding: 100px 20px 20px 20px;
+            padding: 130px 20px 20px 20px;
             position: relative;
             z-index: 2;
         }
 
         h1 {
-            font-size: 3.5rem;
+            font-size: 3.6rem;
             font-weight: 700;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             color: #fff5f7;
-            text-shadow: 0 0 15px rgba(255, 182, 193, 0.8), 0 0 40px rgba(255, 105, 180, 0.6);
-            margin-bottom: 10px;
-            animation: pulseGlow 3s ease-in-out infinite alternate;
+            text-shadow: 0 0 20px rgba(255, 182, 193, 0.6), 0 0 50px rgba(255, 105, 180, 0.4);
+            margin-bottom: 12px;
+            animation: pulseTitle 4s ease-in-out infinite alternate;
         }
 
-        @keyframes pulseGlow {
-            0% { text-shadow: 0 0 15px rgba(255, 182, 193, 0.8), 0 0 30px rgba(255, 105, 180, 0.5); }
-            100% { text-shadow: 0 0 25px rgba(255, 182, 193, 1), 0 0 50px rgba(255, 105, 180, 0.8); }
+        @keyframes pulseTitle {
+            0% { text-shadow: 0 0 15px rgba(255, 182, 193, 0.6), 0 0 35px rgba(255, 105, 180, 0.3); }
+            100% { text-shadow: 0 0 30px rgba(255, 182, 193, 0.9), 0 0 60px rgba(255, 105, 180, 0.7); transform: scale(1.02); }
         }
 
         .subtitle {
             font-style: italic;
-            font-size: 1.15rem;
-            color: #f7cbf2;
-            text-shadow: 0 0 8px rgba(247, 203, 242, 0.6);
-            margin-bottom: 25px;
+            font-size: 1.2rem;
+            color: #e5b3e1;
+            text-shadow: 0 0 10px rgba(229, 179, 225, 0.4);
         }
 
-        /* Container Formatting */
+        /* Sections Structure */
         .section-wrapper {
-            max-width: 550px;
-            margin: 0 auto 50px auto;
+            max-width: 540px;
+            margin: 0 auto 55px auto;
             padding: 0 20px;
             position: relative;
-            z-index: 2;
+            z-index: 5;
         }
 
         .section-title {
             text-align: center;
-            font-size: 1.3rem;
-            color: #ffb6c1;
+            font-size: 1.2rem;
+            color: #ffaec1;
             margin-bottom: 25px;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
+            text-shadow: 0 0 12px rgba(255, 174, 193, 0.3);
         }
 
-        /* Love Timer */
+        /* Transparent Glassmorphic Timer Box */
         .timer-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 182, 193, 0.15);
-            padding: 24px;
+            background: rgba(8, 4, 16, 0.55);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 182, 193, 0.12);
+            padding: 26px;
             border-radius: 24px;
             text-align: center;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
         }
 
         .timer-title {
             font-size: 0.9rem;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ffb6c1;
-            margin-bottom: 16px;
+            letter-spacing: 2.5px;
+            color: #ffaec1;
+            margin-bottom: 18px;
         }
 
         .timer-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
+            gap: 10px;
         }
 
         .timer-box {
-            background: rgba(255, 255, 255, 0.03);
-            padding: 12px 8px;
+            background: rgba(255, 255, 255, 0.02);
+            padding: 14px 4px;
             border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.04);
         }
 
         .timer-num {
             font-size: 1.6rem;
             font-weight: bold;
             color: #ffffff;
-            text-shadow: 0 0 10px rgba(255,255,255,0.3);
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
         }
 
         .timer-label {
             font-size: 0.7rem;
-            color: #d8b2d1;
-            margin-top: 4px;
+            color: #cca9c8;
+            margin-top: 5px;
         }
 
-        /* Envelope / Main Letter */
+        /* Interactive Card Transitions */
         .envelope-wrapper {
             text-align: center;
         }
 
         .envelope-btn {
-            background: linear-gradient(135deg, #ff8da1, #d65a80);
+            background: linear-gradient(135deg, #ff758f, #c93b67);
             color: white;
             border: none;
-            padding: 16px 36px;
-            font-size: 1.1rem;
+            padding: 18px 42px;
+            font-size: 1.15rem;
             border-radius: 50px;
             cursor: pointer;
             font-family: 'Georgia', serif;
-            box-shadow: 0 0 25px rgba(255, 105, 180, 0.4);
+            box-shadow: 0 0 30px rgba(255, 105, 180, 0.3);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
         .envelope-btn:hover {
-            transform: scale(1.05) translateY(-2px);
-            box-shadow: 0 0 35px rgba(255, 105, 180, 0.7);
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 0 45px rgba(255, 105, 180, 0.6);
         }
 
         .letter-container {
             background: #ffffff;
-            border-radius: 24px;
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.6);
-            color: #382535;
-            padding: 40px 30px;
-            margin-top: 30px;
+            border-radius: 28px;
+            box-shadow: 0 35px 80px rgba(0, 0, 0, 0.7);
+            color: #2b1a29;
+            padding: 45px 35px;
+            margin-top: 35px;
             display: none;
-            animation: unfold 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform-origin: top center;
+            animation: cardOpenAnimation 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
             text-align: left;
-            border-top: 8px solid #ff8da1;
+            border-top: 8px solid #ff758f;
         }
 
-        @keyframes unfold {
-            0% { opacity: 0; transform: translateY(30px) scale(0.92); }
-            100% { opacity: 1; transform: translateY(0) scale(1); }
+        @keyframes cardOpenAnimation {
+            0% { opacity: 0; transform: scaleY(0.7) translateY(-20px); }
+            100% { opacity: 1; transform: scaleY(1) translateY(0); }
         }
 
         .letter-header {
-            font-size: 1.6rem;
+            font-size: 1.65rem;
             font-weight: bold;
-            color: #632c49;
-            margin-bottom: 20px;
+            color: #592240;
+            margin-bottom: 22px;
             text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
         }
 
         .letter-body {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.15rem;
+            line-height: 1.9;
             text-align: center;
-            color: #4a3847;
+            color: #3b2c39;
         }
 
-        /* NEW: "Open When..." Virtual Gifts */
+        /* Open When Grid Layout */
         .open-when-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 16px;
         }
 
         .open-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 20px 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 22px;
+            padding: 24px 16px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .open-card:hover {
-            background: rgba(255, 141, 161, 0.15);
-            border-color: rgba(255, 141, 161, 0.4);
-            transform: translateY(-4px);
+            background: rgba(255, 117, 143, 0.12);
+            border-color: rgba(255, 117, 143, 0.4);
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(255, 117, 143, 0.15);
         }
 
         .open-icon {
-            font-size: 2rem;
-            margin-bottom: 8px;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
             display: inline-block;
-            animation: smoothFloat 3s ease-in-out infinite alternate;
+            animation: floatIcon 3.5s ease-in-out infinite alternate;
         }
 
         .open-card:nth-child(2) .open-icon { animation-delay: 0.5s; }
         .open-card:nth-child(3) .open-icon { animation-delay: 1s; }
         .open-card:nth-child(4) .open-icon { animation-delay: 1.5s; }
 
-        @keyframes smoothFloat {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-6px); }
+        @keyframes floatIcon {
+            0% { transform: translateY(0) rotate(-3deg); }
+            100% { transform: translateY(-8px) rotate(3deg); }
         }
 
         .open-title {
             font-size: 0.95rem;
             font-weight: bold;
-            color: #fce3f7;
+            color: #fce1f6;
         }
 
-        /* Modal Popup System for Open When boxes */
+        /* Cinematic Overlay Popup */
         .modal {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(10, 5, 18, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
+            background: rgba(4, 2, 8, 0.92);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 10000;
             display: flex;
             align-items: center;
@@ -325,7 +364,7 @@
             padding: 20px;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 0.4s ease;
+            transition: opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         .modal.active {
@@ -335,16 +374,16 @@
 
         .modal-content {
             background: #ffffff;
-            color: #382535;
-            padding: 35px 25px;
-            border-radius: 24px;
+            color: #2b1a29;
+            padding: 40px 28px;
+            border-radius: 28px;
             max-width: 450px;
             width: 100%;
             text-align: center;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            transform: scale(0.85);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2) ;
-            border-bottom: 6px solid #d65a80;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+            transform: scale(0.8);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border-bottom: 8px solid #c93b67;
         }
 
         .modal.active .modal-content {
@@ -352,55 +391,55 @@
         }
 
         .modal-icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
+            font-size: 3.2rem;
+            margin-bottom: 16px;
         }
 
         .modal-title {
-            font-size: 1.4rem;
-            color: #632c49;
-            margin-bottom: 15px;
+            font-size: 1.45rem;
+            color: #592240;
+            margin-bottom: 16px;
             font-weight: bold;
         }
 
         .modal-text {
-            font-size: 1.05rem;
-            line-height: 1.7;
-            color: #4a3847;
-            margin-bottom: 25px;
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #3b2c39;
+            margin-bottom: 28px;
         }
 
         .modal-close {
-            background: #632c49;
+            background: #592240;
             color: #fff;
             border: none;
-            padding: 10px 25px;
+            padding: 12px 32px;
             border-radius: 50px;
             cursor: pointer;
             font-family: 'Georgia', serif;
-            font-size: 0.95rem;
+            font-size: 1rem;
             transition: background 0.3s;
         }
 
         .modal-close:hover {
-            background: #d65a80;
+            background: #ff758f;
         }
 
-        /* Things I Love About You Dropdowns */
+        /* Things I Love Accordions */
         .reason-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            margin-bottom: 14px;
-            padding: 18px 22px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 18px;
+            margin-bottom: 15px;
+            padding: 20px 24px;
             cursor: pointer;
             transition: all 0.3s ease;
         }
 
         .reason-card:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 182, 193, 0.3);
-            transform: translateX(4px);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(255, 182, 193, 0.25);
+            transform: translateX(6px);
         }
 
         .reason-trigger {
@@ -409,24 +448,24 @@
             align-items: center;
             font-weight: bold;
             font-size: 1.05rem;
-            color: #fce3f7;
+            color: #fce1f6;
         }
 
         .reason-arrow {
-            transition: transform 0.3s ease;
-            color: #ffb6c1;
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            color: #ffaec1;
         }
 
         .reason-content {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #e2d2e0;
+            transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+            color: #dfcfdd;
             font-size: 1rem;
             line-height: 1.6;
         }
 
-        /* Falling Particles (Blossoms & Hearts) */
+        /* Falling Blossoms Engine */
         .particle {
             position: fixed;
             pointer-events: none;
@@ -440,13 +479,116 @@
             100% { transform: translateY(105vh) rotate(360deg) translateX(var(--drift)); opacity: 0; }
         }
 
-        /* Responsive Fixes */
+        /* NEW ARTWORK: CARTOON COUPLE ON MOUNTAIN BACKGROUND ART */
+        .mountain-artwork {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* Minimal Mountain Ridge line */
+        .mountain-peak {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 120px;
+            background: #06020c;
+            border-radius: 400px 400px 0 0;
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
+        }
+
+        /* Sitting Cartoon Silhouette Couple Structure */
+        .couple-silhouette {
+            position: absolute;
+            bottom: 95px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 50px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 4px;
+        }
+
+        /* Boyfriend Side Shape */
+        .boy {
+            width: 24px;
+            height: 44px;
+            background: #0d0617;
+            border-radius: 12px 12px 4px 4px;
+            position: relative;
+        }
+        .boy::before { /* Head */
+            content: '';
+            position: absolute;
+            top: -16px;
+            left: 3px;
+            width: 18px;
+            height: 18px;
+            background: #0d0617;
+            border-radius: 50%;
+        }
+
+        /* Girlfriend Side Shape */
+        .girl {
+            width: 22px;
+            height: 40px;
+            background: #0d0617;
+            border-radius: 14px 14px 4px 4px;
+            position: relative;
+        }
+        .girl::before { /* Head */
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 2px;
+            width: 18px;
+            height: 18px;
+            background: #0d0617;
+            border-radius: 50%;
+        }
+        .girl::after { /* Ponytail/Hair Accent shape */
+            content: '';
+            position: absolute;
+            top: -10px;
+            right: -6px;
+            width: 8px;
+            height: 14px;
+            background: #0d0617;
+            border-radius: 0 10px 10px 0;
+        }
+
+        /* Glowing Heart floating between the couple */
+        .center-heart {
+            position: absolute;
+            bottom: 125px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            animation: pulseHeart 2.5s ease-in-out infinite alternate;
+            filter: drop-shadow(0 0 5px #ff4081);
+        }
+
+        @keyframes pulseHeart {
+            0% { transform: translateX(-50%) scale(0.8); opacity: 0.4; }
+            100% { transform: translateX(-50%) scale(1.1); opacity: 1; }
+        }
+
+        /* Responsive Settings */
         @media (max-width: 600px) {
             h1 { font-size: 2.5rem; }
-            .moon { width: 55px; height: 55px; top: 20px; right: 20px; }
-            header { padding-top: 85px; }
-            .open-when-grid { grid-template-columns: 1fr; gap: 12px; }
-            .letter-container { padding: 30px 20px; }
+            .moon { width: 65px; height: 65px; top: 20px; right: 20px; }
+            header { padding-top: 95px; }
+            .open-when-grid { grid-template-columns: 1fr; gap: 14px; }
+            .letter-container { padding: 35px 20px; }
+            .mountain-peak { width: 110%; height: 110px; }
         }
     </style>
 </head>
@@ -454,6 +596,7 @@
 
     <div class="nebula"></div>
     <div class="stars" id="starsContainer"></div>
+    <div class="shooting-stars" id="shootingStarsContainer"></div>
     <div class="moon"></div>
 
     <header>
@@ -461,7 +604,7 @@
         <p class="subtitle">A Universe Built From Dreams</p>
     </header>
 
-    <!-- Love Timer -->
+    <!-- 1. LIVE TIME TRACKER BOX -->
     <div class="section-wrapper">
         <div class="timer-container">
             <div class="timer-title">✨ Time In Our Universe ✨</div>
@@ -474,7 +617,7 @@
         </div>
     </div>
 
-    <!-- Main Surprise Envelope -->
+    <!-- 2. MAIN ENVELOPE CARD -->
     <div class="section-wrapper envelope-wrapper">
         <button class="envelope-btn" id="openBtn" onclick="toggleLetter(event)">
             <span>✉️</span> Open Your Letter
@@ -489,91 +632,10 @@
         </div>
     </div>
 
-    <!-- NEW: "Open When..." Virtual Boxes -->
+    <!-- 3. OPEN WHEN CARDS -->
     <div class="section-wrapper">
         <div class="section-title">🎁 Open When Letters 🎁</div>
         <div class="open-when-grid">
             <div class="open-card" onclick="openModal('sad', event)">
                 <div class="open-icon">🌧️</div>
-                <div class="open-title">Open when you're sad</div>
-            </div>
-            <div class="open-card" onclick="openModal('stressed', event)">
-                <div class="open-icon">🤯</div>
-                <div class="open-title">Open when stressed</div>
-            </div>
-            <div class="open-card" onclick="openModal('missme', event)">
-                <div class="open-icon">🧸</div>
-                <div class="open-title">Open when you miss me</div>
-            </div>
-            <div class="open-card" onclick="openModal('lonely', event)">
-                <div class="open-icon">🌌</div>
-                <div class="open-title">Open when it's late</div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Interactive Reasons List -->
-    <div class="section-wrapper">
-        <div class="section-title">🌸 Things I Love About You 🌸</div>
-        
-        <div class="reason-card" onclick="toggleReason(this)">
-            <div class="reason-trigger"><span>01. The way you make me smile</span> <span class="reason-arrow">▼</span></div>
-            <div class="reason-content"><p style="padding-top:12px;">Even on the most chaotic days, just thinking about you brings an immediate wave of peace over me.</p></div>
-        </div>
-
-        <div class="reason-card" onclick="toggleReason(this)">
-            <div class="reason-trigger"><span>02. Your beautiful presence</span> <span class="reason-arrow">▼</span></div>
-            <div class="reason-content"><p style="padding-top:12px;">You make this world feel infinitely softer, sweeter, and brighter just by being you.</p></div>
-        </div>
-
-        <div class="reason-card" onclick="toggleReason(this)">
-            <div class="reason-trigger"><span>03. Our unwritten future</span> <span class="reason-arrow">▼</span></div>
-            <div class="reason-content"><p style="padding-top:12px;">We don't need a gallery full of photos yet; we have a blank canvas ahead of us, and I want to paint it entirely with you.</p></div>
-        </div>
-    </div>
-
-    <!-- Dynamic Overlay Modal Box -->
-    <div class="modal" id="customModal" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <div class="modal-icon" id="modalIcon">❤️</div>
-            <div class="modal-title" id="modalTitle">Letter Title</div>
-            <div class="modal-text" id="modalText">Letter text content goes here...</div>
-            <button class="modal-close" onclick="closeModal()">Close Letter</button>
-        </div>
-    </div>
-
-    <script>
-        // --- 1. COUNTUP TIMER CONFIGURATION ---
-        const specialDate = new Date("2025-01-01T00:00:00"); // Edit your anniversary date here!
-
-        function updateTimer() {
-            const difference = new Date() - specialDate;
-            const d = Math.floor(difference / (1000 * 60 * 60 * 24));
-            const h = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const m = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const s = Math.floor((difference % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = d < 10 ? "0" + d : d;
-            document.getElementById("hours").innerText = h < 10 ? "0" + h : h;
-            document.getElementById("minutes").innerText = m < 10 ? "0" + m : m;
-            document.getElementById("seconds").innerText = s < 10 ? "0" + s : s;
-        }
-        setInterval(updateTimer, 1000);
-        updateTimer();
-
-        // --- 2. VIRTUAL LETTER POPUP MESSAGES ---
-        const modalMessages = {
-            sad: {
-                icon: "✨",
-                title: "Open When You're Sad",
-                text: "Hey, look at me. I know right now things feel heavy, but please don't forget how incredibly resilient and wonderful you are. Close your eyes, take a deep breath, and remember that you have someone right here who is always in your corner, cheering you on. I hate seeing you sad, but I love being the one who gets to hold you up. I'm just a text away."
-            },
-            stressed: {
-                icon: "🍵",
-                title: "Open When You're Stressed",
-                text: "Pause. Drop your shoulders. Unclench your jaw. You are trying so hard, and I am already incredibly proud of you. Don't let the weight of the world make you forget how bright you shine. You don't have to figure everything out today. Just take it one tiny step at a time, and let me worry about the rest for a bit."
-            },
-            missme: {
-                icon: "💞",
-                title: "Open When You Miss Me",
-                text: "If you're reading this and missing me, just know I'm probably looking at my phone thinking about you too. Distance and busy days don't change a single t
+   
